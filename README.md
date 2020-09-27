@@ -1,4 +1,4 @@
-# mywebsite
+# Anmol Chawla Portfolio Website
 Flask app with docker hosted on heroku.
 
 On online portfolio website to show full stack data science capabilities. 
