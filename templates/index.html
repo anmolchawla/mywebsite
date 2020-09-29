@@ -1,5 +1,89 @@
 {% extends "base.html" %}
 {% block title %} Anmol Chawla Portfolio {% endblock %}
 {%block content%}
-<h1>Intro page</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type= "text/css" href="{{url_for('static', filename='css/home.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="home">
+    <div class="padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <img src="{{url_for('static', filename='img/anmol.png')}}">
+            </div>
+            <div class="col-sm-6 text-center">
+            <h1>My Data Science Skills include
+              <span
+                 class="txt-rotate"
+                 data-period="2000"
+                 data-rotate='[ "Machine Learning", "Data Analytics and Visualizations", "DevOps", "Cloud Computing", "Data Management", "WebDev" ]'></span>
+            </h1>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<div class="padding">
+<div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <img src="{{url_for('static', filename='img/bootstrap.png')}}">
+            </div>
+            <div class="col-sm-6 text-center">
+                <h2>All about Bootstrap</h2>
+                <p class="lead">Loren ipsum text</p>
+                <p class="lead">Loren ipsum text</p>
+            </div>
+        </div>
+</div>
+</div>
+
+<div class="padding">
+<div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <h4>Built with Saas</h4>
+                <p>Loren Ipsum</p>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <img src="{{url_for('static', filename='img/sass.png')}}" class="img-responsive">
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <h4>Built with Less</h4>
+                <p>Loren Ipsum</p>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <img src="{{url_for('static', filename='img/less.png')}}" class="img-responsive">
+            </div>
+        </div>
+</div>
+</div>
+<div id="fixed">
+</div>
+
+<div class="padding">
+<div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h4>Cool thing Bootstrap</h4>
+                <p>Loren ipsum text</p>
+                <p >Loren ipsum text</p>
+            </div>
+            <div class="col-sm-6">
+                <img src="{{url_for('static', filename='img/bootstrap2.png')}}" class="img-responsive">
+            </div>
+        </div>
+</div>
+</div>
+<script src="{{url_for('static', filename='javascript/home.js')}}"></script>
+</body>
+</html>
 {% endblock %}

@@ -1,0 +1,43 @@
+html, body {
+    height: 100%;
+    weight: 100%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #444;
+}
+
+.navbar-default .navbar-nav li a{
+    color: #D5D5D5;
+}
+
+.navbar-default .navbar-nav li a:hover, .navbar-default .navbar-nav li a.active{
+color: #FFF;
+}
+
+
+#home{
+    background: url(../img/mountains.jpeg) no-repeat center center fixed;
+    display : table;
+    height: 50%;
+    width: 100%;
+    position: relative;
+    background-size: cover;
+}
+
+
+
+.padding{
+    padding: 80px 0;
+}
+
+.padding img{
+    width: 100;
+}
+
+#fixed {
+    background: url(../img/background.jpg) no-repeat center center fixed;
+    display : table;
+    height: 60%;
+    width: 100%;
+    position: relative;
+    background-size: cover;
+}
