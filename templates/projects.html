@@ -1,5 +1,80 @@
 {% extends "base.html" %}
 {% block title %} Anmol Chawla Portfolio {% endblock %}
 {%block content%}
-<h1>Project Page</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type= "text/css" href="{{url_for('static', filename='css/project.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
+
+    </head>
+
+<body>
+<div class="container-fluid contenedor text-center">
+    <div id="floatingHeads"  class="row justify-content-center">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto ">
+
+                     <div class="ver_mas text-center">
+                         <a href="projects/ml" ><span class="fa fa-eye"></span></a>
+                    </div>
+                            <article class="text-left">
+                            <h2>Machine<br>Learning</h2>
+                            <h4>A collection of my interesting ML applications. Also includes my Kaggle kernels.</h4>
+                            </article>
+                            <img src="{{url_for('static', filename='img/ml.jpg')}}" alt="">
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto">
+
+                        <div class="ver_mas text-center">
+                            <a href="projects/dviz" ><span class="fa fa-eye"></span></a>
+                        </div>
+                            <article class="text-left">
+                            <h2>Data Analytics<br>& Visualizations</h2>
+                            <h4>A collection of some of my tableau dashboards and D3.js reporting tools</h4>
+                            </article>
+                            <img src="{{url_for('static', filename='img/datavisualization.jpeg')}}"alt="">
+                   </div>
+
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto">
+
+                        <div class="ver_mas text-center">
+                            <a href="projects/abtest" ><span class="fa fa-eye"></span></a>
+                        </div>
+                            <article class="text-left">
+                            <h2>A/B<br>Testing</h2>
+                            <h4>My final project submission at Google's Udacity A/B testing certification.</h4>
+                            </article>
+                            <img src="{{url_for('static', filename='img/gudacity.png')}}" alt="">
+                   </div>
+   </div>
+    <div id="floatingHeads"  class="row justify-content-center">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto ">
+
+                     <div class="ver_mas text-center">
+                        <a href="projects/webdev" ><span class="fa fa-eye"></span></a>
+                    </div>
+                            <article class="text-left">
+                            <h2>Web <br>Development</h2>
+                            <h4>A breakdown of how I made this Webapp using Docker, Heroku, Flask and some other tools.</h4>
+                            </article>
+                            <img src="{{url_for('static', filename='img/webdev.jpg')}}" alt="">
+                    </div>
+   </div>
+
+
+
+</div>
+<!-- Optional Javascript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+</body>
+</html>
+
+
 {% endblock %}

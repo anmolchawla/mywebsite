@@ -16,6 +16,22 @@ def home():
 def projects():
     return render_template("projects.html")
 
+@app.route("/projects/ml")
+def projects_ml():
+    return render_template("project_ml.html")
+
+@app.route("/projects/dviz")
+def projects_dviz():
+    return render_template("project_dataviz.html")
+
+@app.route("/projects/abtest")
+def projects_abtest():
+    return render_template("project_ab.html")
+
+@app.route("/projects/webdev")
+def projects_webdev():
+    return render_template("project_webdev.html")
+
 
 
 
