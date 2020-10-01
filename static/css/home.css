@@ -208,5 +208,14 @@ transform: translateY(+100%);
     .xl {color:red;font-weight:bold;}
 }
 
+.card-img-top {
+    width: 50%;
+    border-top-left-radius: calc(.25rem - 1px);
+    border-top-right-radius: calc(.25rem - 1px);
+}
+
+#skills{
+text-align: center;
+}
 
 
