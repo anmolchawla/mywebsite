@@ -46,8 +46,13 @@ img {
     color: white;
 }
 
-dl, ol, ul {
+dl, ol, ul, li{
     margin-top: 0;
     margin-bottom: 1rem;
+    color: white;
+}
+
+b, strong {
+    font-weight: bolder;
     color: white;
 }
