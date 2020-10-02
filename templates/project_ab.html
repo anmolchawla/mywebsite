@@ -4,11 +4,509 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type= "text/css" href="{{url_for('static', filename='css/project_ab.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
+
 </head>
 <body>
+<section class="banner-section">
+</section>
+<section class="post-content-section">
+    <div class="container">
+        <div id="content" class="row">
+            <div class="col-lg-12 col-md-9 col-sm-12">
+                <h3><b>Motivation</b></h3>
+                <p>Even though I had prior experience in conducting A/B tests during my internship and then during my time at Service Titan, I always wondered how the best in the industry do it. So, when Google launched a course on Udacity about A/B testing, I immediately jumped on it.
+                Apart from just re-learning the techniques that I already knew, I wanted to know more about the test design philosophy. Also, as the scale changes, new problems arise. A company like Google definitely operates at the highest scale possible. So in this post I will try outline
+                my major learnings and also do a walk through of my final project submission.
+                </p>
+                <blockquote>
+                <p>A line that I picked along the way that really hits A/B testing on the head was, "A/B testing allows you to test a change i.e the change v/s the baseline, but not something extremely new. It is akin to saying,
+                    A/B testing allows you to reach the top of the mountain but which mountain is up to the designers and developers."- Dian Tang (Google) </p>
+                <footer></footer>
+                </blockquote>
 
+                <p>A/B Test methodology changes as per domain, type of change to be measured, the impact that the test will have etc.. A test might have some unintended consequences too </p>
+               <ul>
+                <li>A test might be picked up by bloggers as a new feature.</li>
+                <li>Incorrect setup might hinder the user experience.</li>
+                <li>There might be a learning curve related to the change being tested.</li>
+                </ul>
+                <p>While no test is ever going to be perfect and we as data scientists might not be able to control for all factors, a robust understanding of the techniques and an iterative learning
+                    process will definitely brings us closer to the most accurate result.</p>
+
+                <h3> <b>Steps involved in an A/B test.</b> </h3>
+                <ul>
+                <li>Understanding the domain and the positive change that we as a business are striving for and will possibly be a making a change to achieve.</li>
+                <li>Designing the experiment, it involves asking questions.</li>
+                <ul>
+                    <li>What are the metrics we are trying to move ?</li>
+                    <li>What kind of change will be not only statistically significant but also significant based on business benchmarks.</li>
+                    <li>How will we split our population into control and experiment, What will be the unit of diversion.</li>
+                    <li>Will it interfere with another ongoing test.</li>
+                </ul>
+                <li>Sizing the test ? A test should be of significant power.</li>
+                <li>How long will the test be run for ? What is the trade off between Duration and Exposure ?</li>
+                <li>Setting up the test with the help of developers or tools like optimizely.</li>
+                    <li>Running checks on the gathered data to ensure that the control and experiment are similar when comparing invariant metrics (Metrics that should not differ between the control and experiment e.g the population size)
+                . To make sure that certain anomalies arising out of factors like time, geography are not going to hinder the results.</li>
+                <li>Analyzing the results ? Testing our hypothesis, did the test yield significant results statistically and business wise.</li>
+                <li>Running a sign test to validate our test results to ensure that no anomaly caused a shift in the results.</li>
+                <li>Presenting the results in an easily digestible manner to the business owners and then possibly implementing the change with developers.</li>
+                </ul>
+                <h1><b>Project</b></h1>
+                <h3><b>Overview:</b></h3>
+                <p>An educational website has two options for incoming visitors - "start free trial", and "access course materials". If the student clicks "start free trial", they will be asked to enter their credit card information, and then they will be enrolled in a free trial for the paid version of the course. After 14 days, they will automatically be charged unless they cancel first. If the student clicks "access course materials", they will be able to view the videos and take the quizzes for free, but they will not receive coaching support or a verified certificate, and they will not submit their final project for feedback.</p>
+                <h3><b>Problem Statement:</b></h3>
+                <p>A number of visitors start the free trial but leave before converting to a paid membership. Anecdotal evidence suggests that some students might not be able to devote enough time in the 14 days to get immersed in the course, causing the following problems:</p>
+                <ul>
+                    <li>In the beginning of courses instructors have increased load and hence cannot provide more detailed attention.</li>
+                    <li>Student get frustrated as they feel they did not get enough time to make a judgment.</li>
+                </ul>
+                <h3><b>Hypothesis:</b></h3>
+                <p>To reduce the number of frustrated students who left the free trial because they didn't have enough time—without significantly reducing the number of students to continue past the free trial and eventually complete the course. A change is proposed where if the student clicked "start free trial", they were asked how much time they had available to devote to the course. If the student indicated 5 or more hours per week, they would be taken through the checkout process as usual. If they indicated fewer than 5 hours per week, a message would appear indicating that the courses usually require a greater time commitment for successful completion and suggesting that the student might like to access the course materials for free. At this point, the student would have the option to continue enrolling in the free trial or access the course materials for free instead.</p>
+                <img src="{{url_for('static', filename='img/screenshot.png')}}" alt="Screenshot" class="center">
+                <br>
+                <br>
+                <h3><b>Design:</b></h3>
+                <p>Carry out an A/B test, with the help of developers to validate or reject the hypothesis and share the findings with the stakeholders.</p>
+                <h5><b>Unit of Diversion:</b></h5>
+                <p>The unit of diversion is a cookie, although if the student enrolls in the free trial, they are tracked by user-id from that point forward. The same user-id cannot enroll in the free trial twice. For users that do not enroll, their user-id is not tracked in the experiment, even if they were signed in when they visited the course overview page.The visiting users will be diverted randomly and evenly to the control and experiment group.</p>
+                <p>Note: Any place "unique cookies" are mentioned, the uniqueness is determined by day. (That is, the same cookie visiting on different days would be counted twice.) User-ids are automatically unique since the site does not allow the same user-id to enroll twice.</p>
+                <h5><b>Metrics:</b></h5>
+                <p>Choice of metrics will depend on the availability of the data point being available or easy of accusation, with the help of developers.Two types of metrics will be chosen:</p>
+                <p>Note: dmin : It represents the practical significance boundary.</p>
+                <p><h6><b>Invariant metrics:</b></h6> These metrics will be used to perform sanity checks on the different groups to make sure that the data capture is expected and there are no bugs in the process. It will also be used to catch anomalies that might arise due to geography, latency etc..</p>
+                <ul>
+                    <li>Number of cookies: Number of cookies to view the course overview page (dmin=3000)</li>
+                    <li>Number of clicks: Number of unique cookies to click the “Start free trail” button (dmin=240)</li>
+                    <li>Click through probability: The number of unique cookies to click “Start Free Trial” button divided by the number of unique cookies to view the course overview page. (dmin=0.01)</li>
+                </ul>
+                <p><h6><b>Evaluation metrics: </b></h6>These metrics will be used to measure change. The change should be statistically significant, as well as practically significant in business terms to inform a decision.</p>
+                <ul>
+                    <li>Gross conversion: That is, number of user-ids to complete checkout and enroll in the free trial divided by number of unique cookies to click the “Start Free trial” button. (dmin= 0.01)</li>
+                    <li>Retention: That is the number of user-ids to remain enrolled past the 14-day boundary, making a payment divided by number of user-ids to complete checkout. (dmin=0.01)</li>
+                    <li>Net Conversion: That is the number of user-ids to remain enrolled past the 14-day boundary, making a payment divided by the number of unique cookies to click the “Start Free Trial” button. (dmin= 0.0075)</li>
+                </ul>
+                <p><h6><b>Retrospective analysis: </b></h6> Post the completion of the experiment, if the change is implemented, we can use observational data like logs etc. to show certain co-relation between the change and improvement. This will help in establishing a co-relation, whereas the A/B test would have shown causation.
+                <p><h6><b>Measuring Variability: </b></h6>
+                <p>All metrics have a baseline value.</p>
+                <table BORDER=10 BORDERCOLOR="#0000FF" id="baseline" width="536">
+                    <tbody>
+                    <tr>
+                    <td width="329">
+                    <p>Unique cookies to view course overview page per day:</p>
+                    </td>
+                    <td width="135">
+                    <p>40000</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td width="329">
+                    <p>Unique cookies to click "Start free trial" per day:</p>
+                    </td>
+                    <td width="135">
+                    <p>3200</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td width="329">
+                    <p>Enrollments per day:</p>
+                    </td>
+                    <td width="135">
+                    <p>660</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td width="329">
+                    <p>Click-through-probability on "Start free trial":</p>
+                    </td>
+                    <td width="135">
+                    <p>0.08</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td width="329">
+                    <p>Probability of enrolling, given click:</p>
+                    </td>
+                    <td width="135">
+                    <p>0.20625</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td width="329">
+                    <p>Probability of payment, given enroll:</p>
+                    </td>
+                    <td width="135">
+                    <p>0.53</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td width="329">
+                    <p>Probability of payment, given click</p>
+                    </td>
+                    <td width="135">
+                    <p>0.1093125</p>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                <br>
+                <br>
+                <p>If we select a sample size of 5000 cookies visiting the course overview page, we can expect to the following Standard Deviation:</p>
+                <p>Analytical calculation (If given more time then compare against Empirical):</p>
+                <ul>
+                    <li>S.D = SQRT(p(1-p)/N)</li>
+                    <li>N – changes by sample size subset</li>
+                </ul>
+                <table id="baseline" BORDER=10 BORDERCOLOR="#0000FF">
+                    <tbody>
+                        <tr>
+                            <td width="254">
+                                <p>Metric</p>
+                            </td>
+                            <td width="230">
+                                <p>Value</p>
+                            </td>
+                            <td width="250">
+                                <p>Standard Deviation (Standard error)</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="254">
+                                <p>Gross Conversion</p>
+                            </td>
+                            <td width="230">
+                                <p>660/3200 = 0.2063/400</p>
+                            </td>
+                            <td width="250">
+                                <p>0.0202</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="254">
+                                <p>Retention</p>
+                            </td>
+                            <td width="230">
+                                <p>0.53&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /82.5</p>
+                            </td>
+                            <td width="250">
+                                <p>0.0549</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="254">
+                                <p>Net Conversion</p>
+                            </td>
+                            <td width="230">
+                                <p>0.1093125/400</p>
+                            </td>
+                            <td width="250">
+                                <p>0.0156</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3><b>Sizing:</b></h3>
+                <p>To make sure that the experiment is adequately powered. We would need to establish a number of cookies based on the Standard error derived from the previous variability exercise. This means making sure of a confidence interval and sensitivity. Assuming:</p>
+                <ul>
+                    <li>Alpha = 0.05</li>
+                    <li> Beta = 0.2</li>
+                    <li>Baseline conversion = Calculated above per metric</li>
+                    <li>Min Change required = Given in the problem statement per metric</li>
+                </ul>
+                <p>Bonferroni Correction could be used, but might be too conservative as it does not make any assumptions, which is good but in this case, since the metrics are related, we can skip it.
+                    We can use the sizing calculator <a href="https://www.evanmiller.org/ab-testing/sample-size.html" target="_bkank">here</a>.</p>
+                <table id="baseline" BORDER=10 BORDERCOLOR="#0000FF" width="520">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <p><strong>Metric</strong></p>
+                                </td>
+                                <td>
+                                    <p><strong>Sample Size</strong></p>
+                                </td>
+                                <td>
+                                    <p><strong>Required Overview Cookies</strong></p>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p>Net Conversion</p>
+                                </td>
+                                <td>
+                                    <p>27,413</p>
+                                </td>
+                                <td>
+                                    <p>685,325</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Retention</p>
+                                </td>
+                                <td>
+                                    <p>39,115</p>
+                                </td>
+                                <td>
+                                    <p>4,741,212</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Gross Conversion</p>
+                                </td>
+                                <td>
+                                    <p>25,835</p>
+                                </td>
+                                <td>
+                                    <p>645,876</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <br>
+                <br>
+                <h3><b>Choosing Duration vs. Exposure</b></h3>
+                <p>We would not want to diver the entire traffic of the website as there might be other tests running simultaneously, also complete exposure might be picked by entities that the website might not want to share the feature with yet. Also, the test should be completed within a reasonable time frame so as to control for the inherent business changes that might occur with time. A safe estimate could be to use, 685325. We can use 60% of the traffic and the experiment should be complete in 30 days.</p>
+                <h3><b>After running the test:</b></h3>
+                <p>The Data can be found <a href="https://docs.google.com/spreadsheets/d/1uJo_Bo7hKBNDWn2s05AiVmKomVHJcmsszFPp8qfq8A8/edit?usp=sharing" target="_bkank">here</a>.</p>
+                <h3><b>Sanity Check:</b></h3>
+                <p>After running the test, we can use the invariant metrics to ensure that the data collected is accurate and free from any anomalies.</p>
+                <p>As stated earlier the invariant metrics are as follows:</p>
+                    <ul>
+                    <li>Number of cookies: Number of cookies to view the course overview page (dmin=3000)</li>
+                    <li>Number of clicks: Number of unique cookies to click the “Start free trail” button (dmin=240)</li>
+                    <li>Click through probability: The number of unique cookies to click “Start Free Trial” button divided by the number of unique cookies to view the course overview page. (dmin=0.01)</li>
+                    </ul>
+                <p>Note: Assuming we need a 95% C.I and For all metrics we follow the following procedure</p>
+                <ol>
+                <li>Calculating the individual probability for that metric in the control and experiment, using Xcont, Ncont, Xexp, Nexp</li>
+                <li>Calculate the pooled probability Pp- (Xcont+Xexp)/(Ncont+Nexp)</li>
+                <li>Calculate the pooled Standard error SE – SQRT( Pp(1-Pp) * ((1/Ncont) + (1/Nexp))  )</li>
+                <li>Find Margin of error using – z*SE</li>
+                <li>Z score is based on the C.I – eg for 95% it is 1.96</li>
+                <li>Find the difference d = Pexp-Pcont</li>
+                <li>To get the upper bound – d+m and lower bound d-m</li>
+                <li>If 0 is contained in the interval then it is statistically insignificant and also if the dmin (Practical difference for being significant) is larger, then it is business wise insignificant.</li>
+                <li>Invariant metrics should be insignificant and evaluation metrics should be significant.</li>
+                </ol>
+                <p>Note: For Diversion metric the Expected probability should 50%. Hence if the Pcookie control and Pcookieexp are out of the expected CI generated by a 50-50 distribution, we should inspect.</p>
+                <table id="baseline" BORDER=10 BORDERCOLOR="#0000FF">
+                            <tbody>
+                                <tr>
+                                    <td width="147">
+                                        <p>Metric</p>
+                                    </td>
+                                    <td width="147">
+                                        <p>Lower Bound</p>
+                                    </td>
+                                    <td width="147">
+                                        <p>Upper Bound</p>
+                                    </td>
+                                    <td width="147">
+                                        <p>Observed</p>
+                                    </td>
+                                    <td width="147">
+                                        <p>Pass</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>C</p>
+                                    </td>
+                                    <td>
+                                        <p>0.49882</p>
+                                    </td>
+                                    <td>
+                                        <p>0.50118</p>
+                                    </td>
+                                    <td>
+                                        <p>0.5006</p>
+                                    </td>
+                                    <td>
+                                        <p>yes</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>CL</p>
+                                    </td>
+                                    <td>
+                                        <p>0.495885</p>
+                                    </td>
+                                    <td>
+                                        <p>0.504115</p>
+                                    </td>
+                                    <td>
+                                        <p>0.5005</p>
+                                    </td>
+                                    <td>
+                                        <p>yes</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>CTP</p>
+                                    </td>
+                                    <td>
+                                        <p>-0.00129566</p>
+                                    </td>
+                                    <td>
+                                        <p>0.00129566</p>
+                                    </td>
+                                    <td>
+                                        <p>0.0001</p>
+                                    </td>
+                                    <td>
+                                        <p>yes</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                <br>
+                <br>
+                                <img src="{{url_for('static', filename='img/sanity1.png')}}" align="middle" class="center">
+                <br>
+                <br>
+                                <img src="{{url_for('static', filename='img/sanity2.png')}}" align="middle" class="center">
+                <br>
+                <br>
+                                <img src="{{url_for('static', filename='img/sanity3.png')}}" align="middle" class="center">
+                <br>
+                <br>
+                <h3><b> Analysis of the results:</b></h3>
+                <p>Following the same procedure for the evaluation metrics the same as invariant metrics.</p>
+                <ul>
+                <li>Gross conversion: That is, number of user-ids to complete checkout and enroll in the free trial divided by number of unique cookies to click the “Start Free trial” button. (dmin= 0.01)</li>
+                <li> Retention: In this we cannot measure it as the data for this duration is missing.</li>
+                <li> Net Conversion: That is the number of user-ids to remain enrolled past the 14-day boundary, making a payment divided by the number of unique cookies to click the “Start Free Trial” button. (dmin= 0.0075)</li>
+                </ul>
+                <table id="baseline" BORDER=10 BORDERCOLOR="#0000FF">
+                    <tbody>
+                        <tr>
+                            <td width="121">
+                                <p>Metric</p>
+                            </td>
+                            <td width="129">
+                                <p>Lower Bound</p>
+                            </td>
+                            <td width="129">
+                                <p>Upper Bound</p>
+                            </td>
+                            <td width="118">
+                                <p>Pass</p>
+                            </td>
+                            <td width="112">
+                                <p>Practically Significant</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="121">
+                                <p>GC</p>
+                            </td>
+                            <td width="129">
+                                <p>-0.0291</p>
+                            </td>
+                            <td width="129">
+                                <p>-0.0120</p>
+                            </td>
+                            <td width="118">
+                                <p>yes</p>
+                            </td>
+                            <td width="112">
+                                <p>yes</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="121">
+                                <p>NC</p>
+                            </td>
+                            <td width="129">
+                                <p>-0.0116</p>
+                            </td>
+                            <td width="129">
+                                <p>0.0019</p>
+                            </td>
+                            <td width="118">
+                                <p>No</p>
+                            </td>
+                            <td width="112">
+                                <p>No</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <br>
+                <img src="{{url_for('static', filename='img/analysis1.png')}}" align="middle" class="center">
+                <br>
+                <br>
+                <img src="{{url_for('static', filename='img/analysis2.png')}}" align="middle" class="center">
+                <br>
+                <br>
+                <h3><b> Sign Test for verification:</b></h3>
+                <p>We can run a quick sign test to double check the result.  Online calculator <a href="https://www.graphpad.com/quickcalcs/binomial1.cfm" target="_bkank">here</a> and use binomial distribution.</p>
+                <p>To calculate find the difference in the value of the rate between experiment and control.</p>
+                <table id="baseline" BORDER=10 BORDERCOLOR="#0000FF">
+                <tbody>
+                    <tr>
+                        <td width="121">
+                            <p>Metric</p>
+                        </td>
+                        <td width="129">
+                            <p>p-Value</p>
+                        </td>
+                        <td width="112">
+                            <p>Statistically Significant</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="121">
+                            <p>GC</p>
+                        </td>
+                        <td width="129">
+                            <p>0.0026</p>
+                        </td>
+                        <td width="112">
+                            <p>Yes</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="121">
+                            <p>NC</p>
+                        </td>
+                        <td width="129">
+                            <p>0.6776</p>
+                        </td>
+                        <td width="112">
+                            <p>No</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+                <br>
+                <br>
+                <img src="{{url_for('static', filename='img/signtest1.png')}}" align="middle" class="center">
+                <br>
+                <br>
+                <img src="{{url_for('static', filename='img/signtest2.png')}}" align="middle" class="center">
+                <br>
+                <br>
+                <h3><b> Recommendation:</b></h3>
+                <p>The recommendation would be to launch the change. Since the net conversion was unaffected and the gross conversion did reduce by 2% it is a change worth implementing. To substantiate the results, we can track the net revenue generated by the control and the experiment to get an understanding of the hypothesis that revenue does not get affected by such a change.</p>
+                <h3><b> Future experiment:</b></h3>
+                <p>A similar experiment should be run longer so that we have more days of data for the students who decided to stay enrolled. Future experiments should aim at capturing student satisfaction in term of the time required to complete a course and if 14 days is actually a good threshold value for a free trial.</p>
+                <h3><b> Credit:</b></h3>
+                <p>I would sincerely like to thank Google and Udacity for providing such a valuable course free of cost. I would like to thank all the instructors from Google, who took the time to share there hard earned knowledge by actual implementation and to a fellow class mate Shahin Ashkiani.</p>
+             </div>
+        </div>
+    </div>
+</section>
 </body>
 </html>
 {% endblock %}

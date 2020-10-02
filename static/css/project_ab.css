@@ -1,0 +1,38 @@
+body {
+	font-family: 'Raleway', sans-serif;
+	background-color: #222222;
+}
+
+p{
+color: #fff
+}
+
+section
+{
+    width: 100%;
+    margin:auto;
+}
+#baseline{
+margin:auto;
+}
+
+img {
+  margin: auto;
+  display: block;
+}
+
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 400px;
+}
+
+.banner-section{background-image:url("/static/img/abtestwall.jpg"); background-size:cover; height: 380px; left: 0; position: absolute; top: 0; background-position:0;}
+.post-title-block{padding:100px 0;}
+.post-title-block h1 {color: #000000; font-size: 85px; font-weight: bold; text-transform: capitalize;}
+.post-title-block li{font-size:20px; color: #000000;}
+.footer-link{float:left; width:100%; background:#484848; text-align:center; padding:30px; color: #000000;}
+.footer-link a{color:#A9FD00; font-size:18px; text-transform:uppercase;}
