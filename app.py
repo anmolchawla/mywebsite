@@ -24,6 +24,10 @@ def projects_ml():
 def projects_dviz():
     return render_template("project_dataviz.html")
 
+@app.route("/projects/dviz/tableauSnap")
+def projects_dviz_tableauSnap():
+    return render_template("project_dataviz_tableauSnap.html")
+
 @app.route("/projects/abtest")
 def projects_abtest():
     return render_template("project_ab.html")
