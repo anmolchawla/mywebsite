@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block title %} Anmol Chawla Portfolio {% endblock %}
+{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type= "text/css" href="{{url_for('static', filename='css/project_blog_computervision.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+<section class="banner-section">
+</section>
+<section class="post-content-section">
+    <div class="container">
+        <div id="content" class="row">
+            <div class="col-lg-12 col-md-9 col-sm-12">
+                <h1 style="text-align:center"><b>MNIST: A real life test</b></h1>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">Sooooooo !!! We all see MNSIT data set as the Hello World for data science, but I wanted to take it a step further by creating a small tutorial for all the beginners to see tangible results of their model.</span></p>
+                    <p style="text-align: center;"><span style="font-family: 'Times New Roman', Times, serif;"><iframe width="640" height="360" src="https://www.youtube.com/embed/Bx4o4ySijSo?&wmode=opaque" frameborder="0" allowfullscreen=""></iframe><br></span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">The above video is accompanied by a small break down of the code. Also if you want to download the code follow this right&nbsp;</span><a href="https://github.com/anmolchawla/MNSIT-Webcam-Tutorial" rel="noopener noreferrer" target="_blank"><span style="font-family: 'Times New Roman', Times, serif;">here</span></a><span style="font-family: 'Times New Roman', Times, serif;">, if you just want to play and test the code for yourself, it is hosted on a free cloud server by google, </span><a href="https://colab.research.google.com/drive/1KTYo80VpJ6VCwa558NZxbdP1UIkv3OGV" rel="noopener noreferrer" target="_blank"><span style="font-family: 'Times New Roman', Times, serif;">just click on this</span></a><span style="font-family: 'Times New Roman', Times, serif;"> and it will open in your browser for you to play around.</span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">Let&rsquo;s get cracking.</span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">Step 1: Import the modules needed</span></p>
+                    <p style="text-align: left;"><span style='font-family: "Times New Roman", Times, serif;'><em><strong>import tensorflow as tf</strong></em></span></p>
+                    <p style="text-align: left;"><strong><em><span style="font-family: 'Times New Roman', Times, serif;">import keras</span></em></strong></p>
+                    <p style="text-align: left;"><strong><em><span style="font-family: 'Times New Roman', Times, serif;">from tensorflow.keras.callbacks import TensorBoard</span></em></strong></p>
+                    <p style="text-align: left;"><strong><em><span style="font-family: 'Times New Roman', Times, serif;">import time</span></em></strong></p>
+                    <p style="text-align: left;"><strong><em><span style="font-family: 'Times New Roman', Times, serif;">import numpy as np</span></em></strong></p>
+                    <p style="text-align: left;"><strong><em><span style="font-family: 'Times New Roman', Times, serif;">import matplotlib.pyplot as plt</span></em></strong></p>
+                    <p style="text-align: left;"><span style='font-family: "Times New Roman", Times, serif;'><em><strong>import cv2</strong></em></span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">Tensorflow: TensorFlow&trade; is an open source software library for high-performance numerical computation. Its flexible architecture allows easy deployment of computation across a variety of platforms (CPUs, GPUs, TPUs), and from desktops to clusters of servers to mobile and edge devices. (Think of it as the brains behind all the complex computation )</span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">Keras: Keras is an open source neural network library written in Python. It is capable of running on top of TensorFlow, Microsoft Cognitive Toolkit, or Theano. (Think of it as a library which saves you from writing repetitive code and makes your life easy by making the code simpler and readable)</span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">Numpy: NumPy is a library for the Python programming language, adding support for large, multi-dimensional arrays and matrices, along with a large collection of high-level mathematical functions to operate on these arrays.</span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">Matplot lib allows you to view images and plot of your data. (Let&rsquo;s you have a visual element to all those numbers) and cv2 allows you to read an image like an array.</span></p>
+                    <p><span style='font-family: "Times New Roman", Times, serif;'><strong><em>mnist = tf.keras.datasets.mnist #28*28 image of handwritten of 0-9&nbsp;</em></strong></span></p>
+                    <p><span style='font-family: "Times New Roman", Times, serif;'><em><strong>(x_train, y_train),(x_test,y_test) = mnist.load_data()</strong></em></span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">We just loaded the data as it is one of the many data sets available for us to play around with.</span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">We split it up in test and train. Train: The data that the model uses to learn and Test: The data that the model will use to check it&rsquo;s own performance.</span></p>
+                    <p><span style='font-family: "Times New Roman", Times, serif;'><em><strong>print(&quot;Training Data Shape is {}&quot;.format(x_train.shape))</strong></em></span></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">print(&quot;Training Labels Shape is {}&quot;.format(y_train.shape))</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">print(&quot;Testing Data Shape is {}&quot;.format(x_test.shape))</span></strong></em></p>
+                    <p><span style='font-family: "Times New Roman", Times, serif;'><strong><em>print(&quot;Testing Labels Shape is {}&quot;.format(y_test.shape))</em></strong></span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">So all the images are in a 28*28 format, 28 rows and 28 columns and each data point have a label associated with it (It could be anything from 0&ndash;9). We call the x as the feature set (i.e the data ) and y as the target (i.e the label associated with it)</span></p>
+                    <p><span style='font-family: "Times New Roman", Times, serif;'><em><strong>for i in range(0,20):</strong></em></span></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">&nbsp; plt.imshow(x_train[i], cmap = plt.cm.binary)</span></strong></em></p>
+                    <p><span style='font-family: "Times New Roman", Times, serif;'><strong><em>&nbsp; plt.show()</em></strong></span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">Just print a few data points to see what are we actually dealing with.</span></p>
+                    <p><em><strong><span style='font-family: "Times New Roman", Times, serif;'>x_train = tf.keras.utils.normalize(x_train, axis = 1)</span></strong></em></p>
+                    <p><strong><em><span style='font-family: "Times New Roman", Times, serif;'>x_test = tf.keras.utils.normalize(x_test,axis = 1)</span></em></strong></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">Here we normalize data. Why do we normalize you ask ? Good question here is an article which goes in depth (https://www.quora.com/Why-do-we-normalize-the-data). For the lazy people out there. Normalize basically means putting something which could range from 0&ndash;1000, we can put it in the range 0&ndash;1, For example, assume your input dataset contains one column with values ranging from 0 to 1, and another column with values ranging from 10,000 to 100,000. The great difference in the scale of the numbers could cause problems when you attempt to combine the values as features during modelling.</span></p>
+                    <p><em><strong><span style='font-family: "Times New Roman", Times, serif;'>model = tf.keras.models.Sequential()</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">model.add(tf.keras.layers.Flatten())&nbsp;</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">model.add(tf.keras.layers.Dense(128,activation=tf.nn.relu))</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">model.add(tf.keras.layers.Dense(128,activation=tf.nn.relu))</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">model.add(tf.keras.layers.Dense(10,activation=tf.nn.softmax)) # softmax for probability distribution</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">model.compile(optimizer = &quot;adam&quot; , loss = &#39;sparse_categorical_crossentropy&#39; , metrics = [&#39;accuracy&#39;] )</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">model.fit(x_train,y_train,epochs = 3,callbacks = [tensorboard])</span></strong></em></p>
+                    <p><strong><em><span style='font-family: "Times New Roman", Times, serif;'>predictions = model.predict([x_test])</span></em></strong></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">So this is where the heart of the system comes in.</span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">Sequential: Basically a series of layer one after the other in the order specified.</span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">Flatten: Taking an N-dimensional array and converting it into a single long continuous 1-D array.</span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">Dense Layer: A linear operation in which every input is connected to every output by a weight (so there are n_inputs * n_outputs weights &mdash; which can be a lot!).</span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">Activation function: So what does an artificial neuron do? Simply put, it calculates a &ldquo;weighted sum&rdquo; of its input, adds a bias and then decides whether it should be &ldquo;fired&rdquo; or not ( yeah right, an activation function does this, but selecting the right one is the challenge).</span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">Compile (Basically binds the model together and sets some parameter: like Optimizer: Loss: Metric:)</span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">Fit: Basically introduces the data to the model and epochs decides how many times does it get introduced.</span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">Prediction: So now that our model is trained we need to show it some new data to see if it able to predict the appropriate target.</span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">I promise you this is the bare bone version and explanation of this Deep Learning application. Understanding the number of layers and other parameter settings are where the actual skills come in to play. There are a number of approaches one takes to get them (Trial and error, reading relevant research papers and of course having a strong conceptual understanding of the basics )</span></p>
+                    <p><span style='font-family: "Times New Roman", Times, serif;'><em><strong>from PIL import Image</strong></em></span></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">user_test = filename</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">col = Image.open(user_test)</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">gray = col.convert(&#39;L&#39;)</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">bw = gray.point(lambda x: 0 if x&lt;100 else 255, &#39;1&#39;)</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">bw.save(&quot;bw_image.jpg&quot;)</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">bw</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">img_array = cv2.imread(&quot;bw_image.jpg&quot;, cv2.IMREAD_GRAYSCALE)</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">img_array = cv2.bitwise_not(img_array)</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">print(img_array.size)</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">plt.imshow(img_array, cmap = plt.cm.binary)</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">plt.show()</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">img_size = 28</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">new_array = cv2.resize(img_array, (img_size,img_size))</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">plt.imshow(new_array, cmap = plt.cm.binary)</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">plt.show()</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">user_test = tf.keras.utils.normalize(new_array, axis = 1)</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">predicted = model.predict([[user_test]])</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">a = predicted[0][0]</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">for i in range(0,10):</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">&nbsp; b = predicted[0][i]</span></strong></em></p>
+                    <p><em><strong><span style="font-family: 'Times New Roman', Times, serif;">&nbsp; print(&quot;Probability Distribution for&quot;,i,b)</span></strong></em></p>
+                    <p><span style='font-family: "Times New Roman", Times, serif;'><strong><em>print(&quot;The Predicted Value is&quot;,np.argmax(predicted[0]))</em></strong></span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">The above code comes after you have been able to take an image and store it in the same directory. The image that you took from your webcam or your phone.</span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">It takes the image and converts into black and white, as numbers having nothing to do with colour in our use case, then we read the image in a binary format where we get the image in an array format. Then we resize the image into the 28*28 format and then flatten it. Now we have a neat and tidy input we ask the model to predict it.</span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">The output of the model, in this case, will always be a probability distribution. So the probability will be spread over all the possible classes. The model says something like this (Hey Dude, I think that what you just showed me was a 1 with 80% per cent probability, 5 with a 0.01 per cent probability so and so forth till the cumulative probabilities add up to 1).</span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">So, there you are. Congratulations on making to the end of the article.</span></p>
+                    <p><span style="font-family: 'Times New Roman', Times, serif;">Please feel free to leave comments on &nbsp;the youtube video</span></p>
+             </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
+{% endblock %}

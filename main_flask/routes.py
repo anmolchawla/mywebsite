@@ -1,8 +1,6 @@
-from flask import Flask, redirect, url_for, render_template
-import os
-
-app = Flask(__name__)
-
+"""Routes for parent Flask app."""
+from flask import current_app as app
+from flask import render_template
 
 @app.route("/")
 def index():
@@ -32,13 +30,12 @@ def projects_dviz_tableauSnap():
 def projects_abtest():
     return render_template("project_ab.html")
 
-@app.route("/projects/webdev")
-def projects_webdev():
-    return render_template("project_webdev.html")
+@app.route("/projects/blog")
+def projects_blog():
+    return render_template("project_blog.html")
+
+@app.route("/projects/blog/computervision")
+def projects_blog_computervision():
+    return render_template("project_blog_computervision.html")
 
 
-
-
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(debug=True, host='0.0.0.0', port=port)
