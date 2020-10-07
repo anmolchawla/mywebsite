@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %} Anmol Chawla Portfolio {% endblock %}
+{%block content%}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type= "text/css" href="{{url_for('static', filename='css/project_dataviz.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="container-fluid contenedor text-center">
+    <div id="floatingHeads"  class="row justify-content-center">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto ">
+                        <div class="ver_mas text-center">
+                            <a href="dviz/tableauSnap" ><span class="fa fa-eye"></span></a>
+                        </div>
+                            <article class="text-left">
+                            <h2>Snapchat:<br>Who is paying to get you ?</h2>
+                            <h4>A tableau dashboard report on social media data journalism.</h4>
+                            </article>
+                            <img src="{{url_for('static', filename='img/snap.jpg')}}" alt="">
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto ">
+                        <div class="ver_mas text-center">
+                            <a href="dviz/dash_calls" ><span class="fa fa-eye"></span></a>
+                        </div>
+                            <article class="text-left">
+                            <h2>311- Emergency Calls</h2>
+                            <h4>An interactive plotly Dash dashboard for tracking the call made to 311.</h4>
+                            </article>
+                            <img src="{{url_for('static', filename='img/311call.jpg')}}" alt="">
+                    </div>
+   </div>
+<!--<div class="container-fluid contenedor text-center">-->
+<!--    <div id="floatingHeads"  class="row justify-content-center">-->
+<!--                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto ">-->
+<!--                        <div class="ver_mas text-center">-->
+<!--                            <a href="dviz/tableauSnap" ><span class="fa fa-eye"></span></a>-->
+<!--                        </div>-->
+<!--                            <article class="text-left">-->
+<!--                            <h2>Snapchat:<br>Who is paying to get you ?</h2>-->
+<!--                            <h4>A tableau dashboard report on social media data journalism. An interactive report to dig deeper on who is spending the money to reach you during elections.</h4>-->
+<!--                            </article>-->
+<!--                            <img src="{{url_for('static', filename='img/snap.jpg')}}" alt="">-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto ">-->
+<!--                        <div class="ver_mas text-center">-->
+<!--                            <a href="dviz/dash_Immigration" ><span class="fa fa-eye"></span></a>-->
+<!--                        </div>-->
+<!--                            <article class="text-left">-->
+<!--                            <h2>US-Mexico Border Deaths</h2>-->
+<!--                            <h4>An interactive plotly Dash dashboard on the deaths that occurred at the US-Mexico border. Inspired by the famous Netflix series immigration nation. </h4>-->
+<!--                            </article>-->
+<!--                            <img src="{{url_for('static', filename='img/immigration.jpg')}}" alt="">-->
+<!--                    </div>-->
+<!--   </div>-->
+<!--    <div id="floatingHeads"  class="row justify-content-center">-->
+<!--                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto ">-->
+
+<!--                     <div class="ver_mas text-center">-->
+<!--                        <a href="projects/webdev" ><span class="fa fa-eye"></span></a>-->
+<!--                    </div>-->
+<!--                            <article class="text-left">-->
+<!--                            <h2>Web <br>Development</h2>-->
+<!--                            <h4>A breakdown of how I made this Webapp using Docker, Heroku, Flask and some other tools.</h4>-->
+<!--                            </article>-->
+<!--                            <img src="{{url_for('static', filename='img/webdev.jpg')}}" alt="">-->
+<!--                    </div>-->
+<!--   </div>-->
+
+
+</div>
+<!-- Optional Javascript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+{% endblock %}
